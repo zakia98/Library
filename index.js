@@ -68,7 +68,13 @@ function constructCard(cardsContainer, card, container, titleInfo, authorInfo,
         return card   
     }
 
+function openForm() {
+    popupForm.style.display = "block"
+}
 
+function closeForm() {
+    popupForm.style.display = "none"
+}
 
 addBookToLibrary(guardsGuards)
 addBookToLibrary(theHobbit)
@@ -79,3 +85,8 @@ for (i =0 ; i < myLibrary.length; i++) {
     createCard(myLibrary[i])
 }
 
+const addBook = document.querySelector('#add-book')
+const closeFormBtn = document.querySelector('.btn.cancel')
+const popupForm = document.querySelector('#form')
+addBook.addEventListener('click', openForm)
+closeFormBtn.addEventListener('click', closeForm)
