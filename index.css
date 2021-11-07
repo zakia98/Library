@@ -27,7 +27,8 @@ header {
 
 .card:hover {
     box-shadow: 0 20px 8px 0 rgba(0, 0, 0, 0.2);
-    background-color:rgb(243, 210, 149)
+    background-color:rgb(243, 210, 149);
+    transform: scale(1.05,1.05)
 }
 
 .container {
@@ -53,6 +54,7 @@ header {
     bottom:50%;
     border: 3px solid #f1f1f1;
     z-index:9;
+    
 }
 
 .form-container {

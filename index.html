@@ -19,18 +19,18 @@
             <h1>Enter new book</h1>
 
             <label for="title">Book Title</label>
-            <input type="text" placeholder="Enter book title" name="title" required>
+            <input type="text" id="book-title" placeholder="Enter book title" name="title" required>
 
             <label for="author">Author</label>
-            <input type="text" placeholder="Enter author name" name="author" required>
+            <input type="text" id="author-name" placeholder="Enter author name" name="author" required>
 
             <label for="pages">Number of Pages</label>
-            <input type="text" placeholder="Enter number of pages" name="pages" required>
+            <input type="text" id="pages-no" placeholder="Enter number of pages" name="pages" required>
             
             <label for="read">Have you read it yet?</label>
-            <input type="checkbox"  name="read" required>
+            <input type="checkbox" id="read-status" name="read" value="false">
 
-            <button type="submit" class="btn">Submit</button>
+            <button type="button" class="btn submit">Submit</button>
             <button type="button" class="btn cancel">Close</button>
         </form>
     </div>
