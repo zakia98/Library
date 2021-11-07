@@ -17,9 +17,6 @@ function saveToStorage() {
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary))
 }
 
-theHobbit = new Book("The Hobbit", "JRR Tolkien", 295, false)
-theColorOfMagic = new Book("The Color of Magic", "Terry Pratchett", 300, true)
-guardsGuards = new Book("Guards! Guards!", "Terry Pratchett", 267, true)
 
 
 
@@ -57,8 +54,10 @@ function addInfo(titleInfo, authorInfo, pagesInfo, readStatus, book,
     deleteBtn.textContent = "Delete"
     if (book.read == true) {
         readStatus.textContent = 'Done it!'
+        readStatus.classList.add('read')
     } else {
         readStatus.textContent = 'Not read yet!'
+        readStatus.classList.add('notread')
     }
     
 }
@@ -70,8 +69,9 @@ function addClasses(card, container, titleInfo, authorInfo, pagesInfo,
     titleInfo.classList.add('title')
     authorInfo.classList.add('author')
     pagesInfo.classList.add('pages')
-    readStatus.classList.add('read');
-    deleteBtn.classList.add('delete')
+    readStatus.classList.add('readStatusBtn')
+    deleteBtn.classList.add('delete');
+    
 }
 
 function constructCard(cardsContainer, card, container, titleInfo, authorInfo,
@@ -99,10 +99,11 @@ function handleForm(event) {
         pagesNo.value, readStatus.checked)
     console.log(book)
     addBookToLibrary(book)
-    createCard(book)
+    createCard(book, myLibrary.length + 1)
     saveToStorage()
     const deleteBtns = document.querySelectorAll('.delete')
     deleteBtns.forEach(deleteBtn => deleteBtn.addEventListener('click', deleteCard))
+    readStatusBtns.forEach(readButtons => readButtons.addEventListener('click', changeReadStatus))
     closeForm();
 }
 
@@ -111,7 +112,19 @@ function deleteCard() {
     myLibrary.splice(id, 1)
     this.parentElement.parentElement.remove()
     saveToStorage()
-    debugger
+    
+}
+
+function  changeReadStatus() {
+    if (this.classList.contains('read') == true) {
+        this.textContent = "Not read yet!"
+        this.classList.remove('read')
+        this.classList.add('notread')
+    } else {
+        this.textContent = "Done it!"
+        this.classList.remove('notread')
+        this.classList.add('read')
+    }
 }
 
 for (i =0 ; i < myLibrary.length; i++) {
@@ -127,8 +140,9 @@ const authorName = document.querySelector("#author-name")
 const pagesNo= document.querySelector('#pages-no')
 const readStatus = document.querySelector('#read-status')
 const deleteBtns = document.querySelectorAll('.delete')
+const readStatusBtns = document.querySelectorAll('.readStatusBtn')
 
-
+readStatusBtns.forEach(readButtons => readButtons.addEventListener('click', changeReadStatus))
 
 deleteBtns.forEach(deleteBtn => 
     deleteBtn.addEventListener('click', deleteCard))
