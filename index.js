@@ -11,14 +11,26 @@ function Book(title, author, pages, read = "false") {
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.id = generateID()
 };
+
+
 
 function saveToStorage() {
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary))
 }
 
-
-
+function generateID() {
+    if (myLibrary.length === 0) {
+        return 1
+    } else if (myLibrary.length === 1) {
+        return 2
+    } else {
+        let highestID = myLibrary.reduce((previousValue, currentValue) => 
+            previousValue.id > currentValue.id ? previousValue : currentValue)
+        return (highestID.id + 1)
+    }
+}
 
 function addBookToLibrary(book) {
 
@@ -26,10 +38,10 @@ function addBookToLibrary(book) {
 };
 
 
-function createCard(book, i) {
+function createCard(book) {
     let cardsContainer = document.querySelector('#cards-container')
     let card = document.createElement("div")
-    card.setAttribute('data-id', i)
+    card.setAttribute('data-id', book.id)
     let container = document.createElement('div')
     let titleInfo = document.createElement('h4')
     let authorInfo = document.createElement('p')
@@ -108,11 +120,14 @@ function handleForm(event) {
 }
 
 function deleteCard() {
-    id = this.parentElement.parentElement.dataset.id
-    myLibrary.splice(id, 1)
+    toDelete = this.parentElement.parentElement.dataset.id
+    for (let i = 0; i< myLibrary.length; i++) {
+        if (myLibrary[i].id == toDelete) {
+            myLibrary.splice(i, 1)
+        }
+    }
     this.parentElement.parentElement.remove()
     saveToStorage()
-    
 }
 
 function  changeReadStatus() {
@@ -128,7 +143,7 @@ function  changeReadStatus() {
 }
 
 for (i =0 ; i < myLibrary.length; i++) {
-    cards = createCard(myLibrary[i], i)
+    createCard(myLibrary[i])
 }
 
 const addBook = document.querySelector('#add-book')
@@ -141,6 +156,7 @@ const pagesNo= document.querySelector('#pages-no')
 const readStatus = document.querySelector('#read-status')
 const deleteBtns = document.querySelectorAll('.delete')
 const readStatusBtns = document.querySelectorAll('.readStatusBtn')
+const cards = document.querySelectorAll('.card')
 
 readStatusBtns.forEach(readButtons => readButtons.addEventListener('click', changeReadStatus))
 
